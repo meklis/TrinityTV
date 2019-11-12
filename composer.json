@@ -1,0 +1,21 @@
+{
+  "name": "meklis/trinity-tv",
+  "description": "Library for working with TrinityTV",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Max Boyar",
+      "email": "max.boyar.a@gmail.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Meklis\\Network\\TrinityTV\\": "src/"
+    }
+  },
+  "require": {
+    "php": ">=7.2.0",
+    "guzzlehttp/guzzle": "~6.0"
+  }
+}
