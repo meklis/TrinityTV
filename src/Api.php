@@ -185,7 +185,7 @@ class Api
 
         $hash = md5($requestid . $this->partnerId . $localid . $mac . $this->salt);
 
-        $uri = $this->urlApi . '/user/authorizeDevice?requestid=' . $requestid . '&partnerid=' . $this->partnerId . '&localid=' . $localid . '&mac=' . $mac . '&uuid=' . $uuid . '&hash=' . $hash;
+        $uri = $this->urlApi . '/user/authorizedevice?requestid=' . $requestid . '&partnerid=' . $this->partnerId . '&localid=' . $localid . '&mac=' . $mac . '&uuid=' . $uuid . '&hash=' . $hash;
 
         return $this->sendRequest($uri);
     }
