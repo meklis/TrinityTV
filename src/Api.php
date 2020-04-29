@@ -230,9 +230,15 @@ class Api
             ":"
         ), "", strtoupper($mac));
 
-        $hash = md5($requestid . $this->partnerId . $localid . $mac . $this->salt);
+        if($mac && $uuid) {
+            $hash = md5($requestid . $this->partnerId . $localid . $mac . $uuid. $this->salt);
+        } elseif ($mac) {
+            $hash = md5($requestid . $this->partnerId . $localid . $mac . $this->salt);
+        } else {
+            $hash = md5($requestid . $this->partnerId . $localid . $uuid . $this->salt);
+        }
 
-        $uri = $this->urlApi . '/user/deletemac?requestid=' . $requestid . '&partnerid=' . $this->partnerId . '&localid=' . $localid . '&mac=' . $mac . '&uuid=' . $uuid . '&hash=' . $hash;
+        $uri = $this->urlApi . '/user/deletedevice?requestid=' . $requestid . '&partnerid=' . $this->partnerId . '&localid=' . $localid . '&mac=' . $mac . '&uuid=' . $uuid . '&hash=' . $hash;
 
         return $this->sendRequest($uri);
     }
@@ -263,13 +269,13 @@ class Api
      * @return bool|mixed
      * @throws \Exception
      */
-    public function getPlaylist($localid = 0)
+    public function addPlaylist($localid = 0)
     {
         $requestid = $this->getRequestId();
 
         $hash = md5($requestid . $this->partnerId . $localid . $this->salt);
 
-        $uri = $this->urlApi . '/user/deletedevice' .
+        $uri = $this->urlApi . '/user/getplaylist' .
             '?requestid=' . $requestid .
             '&partnerid=' . $this->partnerId .
             '&localid=' . $localid .
@@ -280,27 +286,17 @@ class Api
     }
 
     /**
-     * Delete playlist for user
      *
-     * @param int $localid
+     * Delete palylist from user
+     *
+     * @param $localid
+     * @param $playlistURL
      * @return bool|mixed
      * @throws \Exception
      */
-    public function deletePlayList($localid = 0, $uuid = "")
+    public function deletePlayList($localid , $playlistURL)
     {
-        $requestid = $this->getRequestId();
-
-        $hash = md5($requestid . $this->partnerId . $localid . $uuid . $this->salt);
-
-        $uri = $this->urlApi . '/user/getplaylist' .
-            '?requestid=' . $requestid .
-            '&partnerid=' . $this->partnerId .
-            '&localid=' . $localid .
-            '&uuid=' . $uuid .
-            '&hash=' . $hash
-        ;
-
-        return $this->sendRequest($uri);
+        return  $this->deleteDevice($localid, $playlistURL);
     }
 
 
