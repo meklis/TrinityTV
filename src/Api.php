@@ -256,6 +256,53 @@ class Api
         return $this->sendRequest($uri);
     }
 
+    /**
+     * Create new playlist for user
+     *
+     * @param int $localid
+     * @return bool|mixed
+     * @throws \Exception
+     */
+    public function getPlaylist($localid = 0)
+    {
+        $requestid = $this->getRequestId();
+
+        $hash = md5($requestid . $this->partnerId . $localid . $this->salt);
+
+        $uri = $this->urlApi . '/user/deletedevice' .
+            '?requestid=' . $requestid .
+            '&partnerid=' . $this->partnerId .
+            '&localid=' . $localid .
+            '&hash=' . $hash
+        ;
+
+        return $this->sendRequest($uri);
+    }
+
+    /**
+     * Delete playlist for user
+     *
+     * @param int $localid
+     * @return bool|mixed
+     * @throws \Exception
+     */
+    public function deletePlayList($localid = 0, $uuid = "")
+    {
+        $requestid = $this->getRequestId();
+
+        $hash = md5($requestid . $this->partnerId . $localid . $uuid . $this->salt);
+
+        $uri = $this->urlApi . '/user/getplaylist' .
+            '?requestid=' . $requestid .
+            '&partnerid=' . $this->partnerId .
+            '&localid=' . $localid .
+            '&uuid=' . $uuid .
+            '&hash=' . $hash
+        ;
+
+        return $this->sendRequest($uri);
+    }
+
 
     /**
      * Generate Unique number
