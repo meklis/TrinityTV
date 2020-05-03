@@ -185,14 +185,14 @@ class Api
 
         if($mac && $uuid) {
             $hash = md5($requestid . $this->partnerId . $localid . $mac . $uuid . $this->salt);
+            $uri = $this->urlApi . '/user/autorizedevice?requestid=' . $requestid . '&partnerid=' . $this->partnerId . '&localid=' . $localid . '&mac=' . $mac . '&uuid=' . $uuid . '&hash=' . $hash;
         } elseif ($mac) {
             $hash = md5($requestid . $this->partnerId . $localid . $mac . $this->salt);
+            $uri = $this->urlApi . '/user/autorizedevice?requestid=' . $requestid . '&partnerid=' . $this->partnerId . '&localid=' . $localid . '&mac=' . $mac . '&hash=' . $hash;
         } else {
             $hash = md5($requestid . $this->partnerId . $localid . $uuid . $this->salt);
-
+            $uri = $this->urlApi . '/user/autorizedevice?requestid=' . $requestid . '&partnerid=' . $this->partnerId . '&localid=' . $localid . '&uuid=' . $uuid . '&hash=' . $hash;
         }
-        $uri = $this->urlApi . '/user/autorizedevice?requestid=' . $requestid . '&partnerid=' . $this->partnerId . '&localid=' . $localid . '&mac=' . $mac . '&uuid=' . $uuid . '&hash=' . $hash;
-
         return $this->sendRequest($uri);
     }
 
@@ -238,13 +238,14 @@ class Api
 
         if($mac && $uuid) {
             $hash = md5($requestid . $this->partnerId . $localid . $mac . $uuid. $this->salt);
+            $uri = $this->urlApi . '/user/deletedevice?requestid=' . $requestid . '&partnerid=' . $this->partnerId . '&localid=' . $localid . '&mac=' . $mac . '&uuid=' . $uuid . '&hash=' . $hash;
         } elseif ($mac) {
             $hash = md5($requestid . $this->partnerId . $localid . $mac . $this->salt);
+            $uri = $this->urlApi . '/user/deletedevice?requestid=' . $requestid . '&partnerid=' . $this->partnerId . '&localid=' . $localid . '&mac=' . $mac . '&hash=' . $hash;
         } else {
             $hash = md5($requestid . $this->partnerId . $localid . $uuid . $this->salt);
+            $uri = $this->urlApi . '/user/deletedevice?requestid=' . $requestid . '&partnerid=' . $this->partnerId . '&localid=' . $localid  . '&uuid=' . $uuid . '&hash=' . $hash;
         }
-
-        $uri = $this->urlApi . '/user/deletedevice?requestid=' . $requestid . '&partnerid=' . $this->partnerId . '&localid=' . $localid . '&mac=' . $mac . '&uuid=' . $uuid . '&hash=' . $hash;
 
         return $this->sendRequest($uri);
     }
