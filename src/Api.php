@@ -183,8 +183,14 @@ class Api
             ":"
         ), "", strtoupper($mac));
 
-        $hash = md5($requestid . $this->partnerId . $localid . $mac . $this->salt);
+        if($mac && $uuid) {
+            $hash = md5($requestid . $this->partnerId . $localid . $mac . $uuid . $this->salt);
+        } elseif ($mac) {
+            $hash = md5($requestid . $this->partnerId . $localid . $mac . $this->salt);
+        } else {
+            $hash = md5($requestid . $this->partnerId . $localid . $uuid . $this->salt);
 
+        }
         $uri = $this->urlApi . '/user/autorizedevice?requestid=' . $requestid . '&partnerid=' . $this->partnerId . '&localid=' . $localid . '&mac=' . $mac . '&uuid=' . $uuid . '&hash=' . $hash;
 
         return $this->sendRequest($uri);
